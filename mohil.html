@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Common styles */
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Navigation styles */
+      .navbar {
+        background: #6b4e71;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        gap: 10px;
+      }
+
+      .logo img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .buy-now-button {
+        background: #f5af19;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* Hero section styles */
+      .hero-section {
+        background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+        padding: 60px 20px;
+        color: white;
+        border-radius: 0 0 50px 0;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+        padding: 60px 20px 120px; /* Increased bottom padding for wave */
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .wave-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        transform: translateY(1px); /* Prevent tiny gap */
+        filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.1));
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .location {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .location::before {
+        content: "★";
+        margin-right: 8px;
+      }
+
+      .hero-content {
+        flex: 1;
+        padding-right: 40px;
+      }
+
+      .hero-title {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        line-height: 1.2;
+      }
+
+      .features-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+      }
+
+      .features-list li {
+        margin-bottom: 15px;
+        padding-left: 30px;
+        position: relative;
+      }
+
+      .features-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: white;
+      }
+
+      .study-hours {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        display: inline-flex;
+        gap: 5px;
+      }
+
+      .hour-digit {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+
+      .dates-card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        color: #333;
+        min-width: 300px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .dates-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .dates-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .date-item {
+        background: #f8f8f8;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        position: relative;
+      }
+
+      .month {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .day {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 5px 0;
+      }
+
+      .spaces-badge {
+        background: #e0f2e9;
+        color: #2d8a59;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 15px;
+        display: inline-block;
+      }
+
+      /* Course outline section styles */
+      .course-outline {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .course-title {
+        text-align: center;
+        color: #333;
+        font-size: 36px;
+        margin-bottom: 40px;
+      }
+
+      .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        margin-bottom: 60px;
+      }
+
+      .progress-steps::before {
+        content: "";
+        position: absolute;
+        top: 25px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #e0e0e0;
+        z-index: 1;
+      }
+
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .step-number {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #999;
+      }
+
+      .step.active .step-number {
+        background: #f5af19;
+        border-color: #f5af19;
+        color: white;
+      }
+
+      .step-text {
+        color: #999;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .step.active .step-text {
+        color: #333;
+        font-weight: bold;
+      }
+
+      /* Insight section styles */
+      .insight-section {
+        display: flex;
+        gap: 40px;
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        align-items: center;
+      }
+
+      .insight-image {
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .insight-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .insight-content {
+        flex: 1;
+      }
+
+      .insight-icon {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .insight-title {
+        font-size: 32px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .insight-text {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .book-button {
+        background: #f5af19;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .book-button:hover {
+        background: #f12711;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <a href="#" class="logo">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7e6QcJtO9o1aI7h1fzMUp6V1UVGKWajL_389x5initCVfi9FvgFzj916cyX0SfFKH7vk&usqp=CAU"
+          alt="Study Mind Logo"
+        />
+        <span>STUDY MIND</span>
+      </a>
+      <button class="buy-now-button">Buy Now</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="location">Central London</div>
+          <h1 class="hero-title">
+            Chemistry Work Experience Year 12: Get Your first Practical Skills!
+          </h1>
+          <ul class="features-list">
+            <li>Led by Chemists</li>
+            <li>Gain Practical Chemistry Skills</li>
+            <li>Certificate Provided</li>
+            <li>Trusted by 36 Schools</li>
+          </ul>
+          <div class="study-hours">
+            <span class="hour-digit">1</span>
+            <span class="hour-digit">0</span>
+            <span class="hour-digit">3</span>
+            <span class="hour-digit">2</span>
+            <span class="hour-digit">1</span>
+            <span style="align-self: center; margin-left: 10px"
+              >Study Mind Hours Taught</span
+            >
+          </div>
+        </div>
+
+        <div class="dates-card">
+          <h2 class="dates-title">2025 Start Dates (more dates at checkout)</h2>
+          <div class="dates-grid">
+            <div class="date-item">
+              <div class="month">JUN</div>
+              <div class="day">30</div>
+              <div class="spaces-badge">SPACES LEFT</div>
+            </div>
+            <div class="date-item">
+              <div class="month">JUL</div>
+              <div class="day">7</div>
+              <div class="spaces-badge">SPACES LEFT</div>
+            </div>
+            <div class="date-item">
+              <div class="month">JUL</div>
+              <div class="day">14</div>
+              <div class="spaces-badge">SPACES LEFT</div>
+            </div>
+            <div class="date-item">
+              <div class="month">JUL</div>
+              <div class="day">21</div>
+              <div class="spaces-badge">SPACES LEFT</div>
+            </div>
+            <div class="date-item">
+              <div class="month">JUL</div>
+              <div class="day">28</div>
+              <div class="spaces-badge">SPACES LEFT</div>
+            </div>
+            <div class="date-item">
+              <div class="month">AUG</div>
+              <div class="day">4</div>
+              <div class="spaces-badge">SPACES LEFT</div>
+            </div>
+            <div class="date-item">
+              <div class="month">AUG</div>
+              <div class="day">11</div>
+              <div class="spaces-badge">SPACES LEFT</div>
+            </div>
+            <div class="date-item">
+              <div class="month">AUG</div>
+              <div class="day">18</div>
+              <div class="spaces-badge">SPACES LEFT</div>
+            </div>
+          </div>
+          <button class="book-button">Book Today</button>
+        </div>
+      </div>
+      <svg
+        class="wave-bottom"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#ffffff"
+          d="M0,64 
+               C288,89.3 
+               480,89.3 
+               720,64 
+               C960,38.7 
+               1152,38.7 
+               1440,64 
+               L1440,120 
+               L0,120 Z"
+        />
+      </svg>
+    </section>
+
+    <!-- Course Outline Section -->
+    <section class="course-outline">
+      <h2 class="course-title">
+        1 Week Chemistry Work Experience For Year 12 Students
+      </h2>
+      <div class="progress-steps">
+        <div class="step active">
+          <div class="step-number">1</div>
+          <div class="step-text">Life as a Chemist</div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-text">Chemistry Careers</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-text">Chemistry Practice</div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-text">UCAS</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Insight Section -->
+    <section class="insight-section">
+      <div class="insight-image">
+        <img
+          src="https://icmhs.co.ke/wp-content/uploads/2023/08/ICMHS-1121-1536x1024.jpg"
+          alt="Students in chemistry lab"
+        />
+      </div>
+      <div class="insight-content">
+        <div class="insight-icon">🧪</div>
+        <h2 class="insight-title">Insight from Chemists</h2>
+        <p class="insight-text">
+          As an aspiring chemist, you'll have the opportunity to engage with
+          experts in the field. Throughout your chemistry work experience
+          programme, you can connect with professionals from various chemistry
+          disciplines, including organic chemistry, analytical chemistry,
+          physical chemistry, and more.
+        </p>
+        <button class="book-button">BUY NOW</button>
+      </div>
+    </section>
+  </body>
+</html>
